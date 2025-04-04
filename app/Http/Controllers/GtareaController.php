@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\GtareaRequest;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class GtareaController extends Controller
 {
@@ -16,10 +17,11 @@ class GtareaController extends Controller
      */
     public function index(Request $request): View
     {
+        $datos=DB::select('select * from gtareas ');
         $gtareas = Gtarea::paginate();
 
         return view('gtarea.index', compact('gtareas'))
-            ->with('i', ($request->input('page', 1) - 1) * $gtareas->perPage());
+            ->with("datos", $datos);
     }
 
     /**

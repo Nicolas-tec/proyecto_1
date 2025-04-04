@@ -1,10 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GtareaController;
 
-Route::get('/', function () {
-    return view('gtarea/index');
-});
+Route::get('/', [GtareaController::class,"index"])->name("gtarea");
 
 Route::middleware([
     'auth:sanctum',
