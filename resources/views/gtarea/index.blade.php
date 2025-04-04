@@ -9,8 +9,57 @@
     <title>gestor de tareas</title>
 </head>
 <body>
+  <h1 class="text-center p-3">Gestor de Tareas</h1>
+  <!-- Modal de creacion-->
+<div class="modal fade" id="crear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Crear Tarea</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form>
+          @csrf
+    <legend>Tarea Nueva</legend>
+    <div class="mb-3">
+      <label for="disabledTextInput" class="form-label">Descripcion de tarea</label>
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="Descripcion de tarea" name="D_tarea">
+    </div>
+    <div class="mb-3">
+      <label for="disabledSelect" class="form-label">Estatus</label>
+      <select id="disabledSelect" class="form-select" name="Estatus">
+        <option selected>Selecione Estado</option>
+        <option value="Pendiente">Pendiente</option>
+        <option value="Completado">Completado</option>
+        <option value="Cancelado">Cancelado</option>
+        <option value="Activo">Activo</option>
+        <option value="Retenido">Retenido</option>
+      </select>
+    </div>
+    <div class="mb-3">
+      <label for="disabledTextInput" class="form-label">Fecha de publicasion</label>
+      <input type="date" id="disabledTextInput" class="form-control" placeholder="DD//MM//AA" name="F_publicasion">
+    </div>
+    <div class="mb-3">
+      <label for="disabledTextInput" class="form-label">Comentarios</label>
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="Comentarios" name="Comentarios">
+    </div>
+    <div class="mb-3">
+      <label for="disabledTextInput" class="form-label">Encargado</label>
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="Pepito perez" name="usuario">
+    </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+    <button type="submit" class="btn btn-success">Crear</button>
+  </div>
+</form>
+      </div>
+    </div>
+  </div>
+</div>
     <div class="container p-5 table-responsive">
-        <h1 class="text-center p-3">Gestor de Tareas</h1>
+        <button type="submit" class="btn btn-success btn-sm"  data-bs-toggle="modal" data-bs-target="#crear">Añadir tarea</button>
         <table class="table table-success table-bordered table-hover">
             <thead class="table-header-dark">
                 <tr>
@@ -45,31 +94,38 @@
       </div>
       <div class="modal-body">
         <form>
-  <fieldset disabled>
-    <legend>Disabled fieldset example</legend>
+          @csrf
+    <legend>Tarea Actual</legend>
     <div class="mb-3">
-      <label for="disabledTextInput" class="form-label">Disabled input</label>
-      <input type="text" id="disabledTextInput" class="form-control" placeholder="Disabled input">
+      <label for="disabledTextInput" class="form-label">Descripcion de tarea</label>
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="Descripcion de tarea" name="D_tarea">
     </div>
     <div class="mb-3">
-      <label for="disabledSelect" class="form-label">Disabled select menu</label>
-      <select id="disabledSelect" class="form-select">
-        <option>Disabled select</option>
+      <label for="disabledSelect" class="form-label">Estatus</label>
+      <select id="disabledSelect" class="form-select" name="Estatus">
+        <option selected>Selecione Estado</option>
+        <option value="Pendiente">Pendiente</option>
+        <option value="Completado">Completado</option>
+        <option value="Cancelado">Cancelado</option>
+        <option value="Activo">Activo</option>
+        <option value="Retenido">Retenido</option>
       </select>
     </div>
     <div class="mb-3">
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="disabledFieldsetCheck" disabled>
-        <label class="form-check-label" for="disabledFieldsetCheck">
-          Can't check this
-        </label>
-      </div>
+      <label for="disabledTextInput" class="form-label">Fecha de publicasion</label>
+      <input type="date" id="disabledTextInput" class="form-control" placeholder="DD//MM//AA" name="F_publicasion">
     </div>
-    <button type="submit" class="btn btn-primary">Submit</button>
-  </fieldset>
+    <div class="mb-3">
+      <label for="disabledTextInput" class="form-label">Comentarios</label>
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="Comentarios" name="Comentarios">
+    </div>
+    <div class="mb-3">
+      <label for="disabledTextInput" class="form-label">Encargado</label>
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="Pepito perez" name="usuario">
+    </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-    <button type="button" class="btn btn-primary">Save changes</button>
+    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>
+    <button type="submit" class="btn btn-success">Actualizar</button>
   </div>
 </form>
       </div>
