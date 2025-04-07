@@ -10,6 +10,12 @@
 </head>
 <body>
   <h1 class="text-center p-3">Gestor de Tareas</h1>
+  @if (session("correcto"))
+  <div class="alert alert-success" role="alert">{{session("correcto")}}</div>
+  @endif
+  @if (session("ERROR"))
+  <div class="alert alert-danger" role="alert">{{session("ERROR")}}</div>
+  @endif
   <!-- Modal de creacion-->
 <div class="modal fade" id="crear" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -19,7 +25,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="{{ route('gtarea.create') }}" method="POST">
           @csrf
     <legend>Tarea Nueva</legend>
     <div class="mb-3">
@@ -98,11 +104,11 @@
     <legend>Tarea Actual</legend>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Descripcion de tarea</label>
-      <input type="text" id="disabledTextInput" class="form-control" placeholder="Descripcion de tarea" name="D_tarea">
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="Descripcion de tarea" name="D_tarea" value="{{$item->D_tarea}}">
     </div>
     <div class="mb-3">
       <label for="disabledSelect" class="form-label">Estatus</label>
-      <select id="disabledSelect" class="form-select" name="Estatus">
+      <select id="disabledSelect" class="form-select" name="Estatus" value="{{$item->Estatus}}">
         <option selected>Selecione Estado</option>
         <option value="Pendiente">Pendiente</option>
         <option value="Completado">Completado</option>
@@ -113,15 +119,15 @@
     </div>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Fecha de publicasion</label>
-      <input type="date" id="disabledTextInput" class="form-control" placeholder="DD//MM//AA" name="F_publicasion">
+      <input type="date" id="disabledTextInput" class="form-control" placeholder="DD//MM//AA" name="F_publicasion" value="{{$item->F_publicasion}}">
     </div>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Comentarios</label>
-      <input type="text" id="disabledTextInput" class="form-control" placeholder="Comentarios" name="Comentarios">
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="Comentarios" name="Comentarios" value="{{$item->Comentarios}}">
     </div>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Encargado</label>
-      <input type="text" id="disabledTextInput" class="form-control" placeholder="Pepito perez" name="usuario">
+      <input type="text" id="disabledTextInput" class="form-control" placeholder="Pepito perez" name="usuario" value="{{$item->usuario}}">
     </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Cerrar</button>

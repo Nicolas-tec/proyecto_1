@@ -27,11 +27,25 @@ class GtareaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(): View
+    public function create(Request $request)
     {
-        $gtarea = new Gtarea();
-
-        return view('gtarea.create', compact('gtarea'));
+        try {
+            $sql=DB::insert('insert into gtareas (D_tarea, Estatus, F_publicasion, Comentarios, usuario) values (?, ?, ?, ?, ?)', [
+                $request->D_tarea,
+                $request->Estatus,
+                $request->F_publicasion,
+                $request->Comentarios,
+                $request->usuario,
+            ]);
+        } catch (\Throwable $th) {
+            $sql = 0;
+        }
+        if ($sql == true) {
+            return back()->with("correcto","Nueva actividad ingresada");
+        } else {
+            return back()->with("ERROR", "ERROR");
+        }
+        
     }
 
     /**
