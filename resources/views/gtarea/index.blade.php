@@ -86,12 +86,12 @@
                     <td>{{$item->Comentarios}}</td>
                     <td>{{$item->usuario}}</td>
                     <td> 
-                        <a href="#"  data-bs-toggle="modal" data-bs-target="#editar" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-nib"></i></a>
+                        <a href="#"  data-bs-toggle="modal" data-bs-target="#editar{{$item->id_tarea}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-nib"></i></a>
                         <a href="#" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash" style="color: #000000;"></i></a>
                     </td>
 
 <!-- Modal de editar-->
-<div class="modal fade" id="editar" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="editar{{$item->id_tarea}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
@@ -99,7 +99,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form>
+        <form action="{{ route('gtarea.update') }}" method="POST">
           @csrf
     <legend>Tarea Actual</legend>
     <div class="mb-3">
@@ -108,8 +108,8 @@
     </div>
     <div class="mb-3">
       <label for="disabledSelect" class="form-label">Estatus</label>
-      <select id="disabledSelect" class="form-select" name="Estatus" value="{{$item->Estatus}}">
-        <option selected>Selecione Estado</option>
+      <select id="disabledSelect" class="form-select" name="Estatus">
+        <option selected>{{$item->Estatus}}</option>
         <option value="Pendiente">Pendiente</option>
         <option value="Completado">Completado</option>
         <option value="Cancelado">Cancelado</option>

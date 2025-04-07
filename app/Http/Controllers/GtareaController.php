@@ -82,12 +82,25 @@ class GtareaController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(GtareaRequest $request, Gtarea $gtarea): RedirectResponse
+    public function update(Request $request)
     {
-        $gtarea->update($request->validated());
-
-        return Redirect::route('gtareas.index')
-            ->with('success', 'Gtarea updated successfully');
+        try {
+            $sql=DB::update('update gtareas set D_tarea=?, Estatus=?, F_publicasion=?, Comentarios=?, usuario=? where id_tarea=?', [
+                $request->D_tarea,
+                $request->Estatus,
+                $request->F_publicasion,
+                $request->Comentarios,
+                $request->usuario,
+                $request->id_tarea,
+            ]);
+        } catch (\Throwable $th) {
+            $sql = 0;
+        }
+        if ($sql == true) {
+            return back()->with("correcto","tarea actualizada");
+        } else {
+            return back()->with("ERROR", "ERROR");
+        }
     }
 
     public function destroy($id): RedirectResponse
