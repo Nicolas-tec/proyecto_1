@@ -87,7 +87,7 @@
                     <td>{{$item->usuario}}</td>
                     <td> 
                         <a href="#"  data-bs-toggle="modal" data-bs-target="#editar{{$item->id_tarea}}" class="btn btn-warning btn-sm"><i class="fa-solid fa-pen-nib"></i></a>
-                        <a href="#" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash" style="color: #000000;"></i></a>
+                        <a href="{{route("gtarea.delete",$item->id_tarea)}}" class="btn btn-sm btn-danger"><i class="fa-solid fa-trash" style="color: #000000;"></i></a>
                     </td>
 
 <!-- Modal de editar-->
@@ -104,11 +104,12 @@
     <legend>Tarea Actual</legend>
     <div class="mb-3">
       <label for="disabledTextInput" class="form-label">Descripcion de tarea</label>
+      <input type="hidden" name="id_tarea" value="{{ $item->id_tarea }}">
       <input type="text" id="disabledTextInput" class="form-control" placeholder="Descripcion de tarea" name="D_tarea" value="{{$item->D_tarea}}">
     </div>
     <div class="mb-3">
       <label for="disabledSelect" class="form-label">Estatus</label>
-      <select id="disabledSelect" class="form-select" name="Estatus">
+      <select id="disabledSelect" class="form-select estatus-select" name="Estatus">
         <option selected>{{$item->Estatus}}</option>
         <option value="Pendiente">Pendiente</option>
         <option value="Completado">Completado</option>
@@ -144,5 +145,43 @@
         </table>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+          const selects = document.querySelectorAll(".estatus-select");
+      
+          selects.forEach(select => {
+              applyColor(select);
+              select.addEventListener("change", function() {
+                  applyColor(select);
+              });
+          });
+      
+          function applyColor(select) {
+              const value = select.value;
+              select.classList.remove("bg-warning", "bg-success", "bg-danger", "bg-info", "bg-secondary");
+      
+              switch(value) {
+                  case "Pendiente":
+                      select.classList.add("bg-warning");
+                      break;
+                  case "Completado":
+                      select.classList.add("bg-success");
+                      break;
+                  case "Cancelado":
+                      select.classList.add("bg-danger");
+                      break;
+                  case "Activo":
+                      select.classList.add("bg-info");
+                      break;
+                  case "Retenido":
+                      select.classList.add("bg-secondary");
+                      break;
+                  default:
+                      break;
+              }
+          }
+      });
+      </script>
+      
 </body>
 </html>

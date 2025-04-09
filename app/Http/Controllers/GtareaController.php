@@ -83,25 +83,24 @@ class GtareaController extends Controller
      * Update the specified resource in storage.
      */
     public function update(Request $request)
-    {
-        try {
-            $sql=DB::update('update gtareas set D_tarea=?, Estatus=?, F_publicasion=?, Comentarios=?, usuario=? where id_tarea=?', [
-                $request->D_tarea,
-                $request->Estatus,
-                $request->F_publicasion,
-                $request->Comentarios,
-                $request->usuario,
-                $request->id_tarea,
-            ]);
-        } catch (\Throwable $th) {
-            $sql = 0;
-        }
-        if ($sql == true) {
-            return back()->with("correcto","tarea actualizada");
-        } else {
-            return back()->with("ERROR", "ERROR");
-        }
+{
+    try {
+        $tarea = Gtarea::findOrFail($request->id_tarea);
+        $tarea->fill([
+            'D_tarea' => $request->D_tarea,
+            'Estatus' => $request->Estatus,
+            'F_publicasion' => $request->F_publicasion,
+            'Comentarios' => $request->Comentarios,
+            'usuario' => $request->usuario,
+        ]);
+        $tarea->save();
+
+        return back()->with("correcto", "Tarea actualizada");
+    } catch (\Throwable $th) {
+        return back()->with("ERROR", "ERROR al actualizar: " . $th->getMessage());
     }
+}
+
 
     public function destroy($id): RedirectResponse
     {
@@ -109,5 +108,17 @@ class GtareaController extends Controller
 
         return Redirect::route('gtareas.index')
             ->with('success', 'Gtarea deleted successfully');
+    }
+    public function delete($id_tarea){
+        try {
+            $sql = DB::delete('delete from gtareas where id_tarea = ?', [$id_tarea]);
+        } catch (\Throwable $th) {
+            $sql = 0;
+        }
+        if ($sql == true) {
+            return back()->with("correcto", "tarea borrada");
+        } else {
+            return back()->with("ERROR", "ERROR");
+        }
     }
 }

@@ -19,7 +19,9 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Gtarea extends Model
 {
-    
+    protected $table = 'gtareas';
+    protected $primaryKey = 'id_tarea';
+    public $timestamps = false;
     protected $perPage = 20;
 
     /**
@@ -27,7 +29,7 @@ class Gtarea extends Model
      *
      * @var array<int, string>
      */
-    protected $fillable = ['id_tarea', 'D_tarea', 'Estatus', 'F_publicasion', 'Comentarios', 'usuario'];
+    protected $fillable = ['D_tarea', 'Estatus', 'F_publicasion', 'Comentarios', 'usuario'];
 
 
 }

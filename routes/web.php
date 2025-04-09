@@ -22,3 +22,4 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::post('/nueva-tarea', [GtareaController::class,"create"])->name("gtarea.create");
 Route::post('/editar-tarea', [GtareaController::class,"update"])->name("gtarea.update");
+Route::get('/eliminar-tarea-{id_tarea}', [GtareaController::class,"delete"])->name("gtarea.delete");
