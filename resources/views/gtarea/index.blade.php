@@ -66,7 +66,7 @@
 </div>
     <div class="container p-5 table-responsive">
         <button type="submit" class="btn btn-success btn-sm"  data-bs-toggle="modal" data-bs-target="#crear">Añadir tarea</button>
-        <table class="table table-success table-bordered table-hover">
+        <table class="table table-success table-bordered">
             <thead class="table-header-dark">
                 <tr>
                     <th scope="col">Descripcion</th>
@@ -81,7 +81,24 @@
                 @foreach ($datos as $item)
                 <tr>
                     <td>{{$item->D_tarea}}</td>
-                    <td>{{$item->Estatus}}</td>
+                    @php
+                    $tdBg = match($item->Estatus) {
+                      'Pendiente' => 'bg-warning',
+                      'Completado' => 'bg-success',
+                      'Cancelado' => 'bg-danger',
+                      'Activo' => 'bg-info',
+                      'Retenido' => 'bg-secondary',
+                      default => 'bg-light',
+                    };
+                    $badgeClass = match($item->Estatus) {
+                      'Pendiente' => 'text-dark',
+                      'Activo' => 'text-dark',
+                      default => 'text-dark',
+                      };
+                    @endphp
+                    <td class="{{ $tdBg }}">
+                      <span class="badge {{ $badgeClass }}">{{ $item->Estatus }}</span>
+                    </td>
                     <td>{{$item->F_publicasion}}</td>
                     <td>{{$item->Comentarios}}</td>
                     <td>{{$item->usuario}}</td>
@@ -145,43 +162,5 @@
         </table>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-      document.addEventListener("DOMContentLoaded", function() {
-          const selects = document.querySelectorAll(".estatus-select");
-      
-          selects.forEach(select => {
-              applyColor(select);
-              select.addEventListener("change", function() {
-                  applyColor(select);
-              });
-          });
-      
-          function applyColor(select) {
-              const value = select.value;
-              select.classList.remove("bg-warning", "bg-success", "bg-danger", "bg-info", "bg-secondary");
-      
-              switch(value) {
-                  case "Pendiente":
-                      select.classList.add("bg-warning");
-                      break;
-                  case "Completado":
-                      select.classList.add("bg-success");
-                      break;
-                  case "Cancelado":
-                      select.classList.add("bg-danger");
-                      break;
-                  case "Activo":
-                      select.classList.add("bg-info");
-                      break;
-                  case "Retenido":
-                      select.classList.add("bg-secondary");
-                      break;
-                  default:
-                      break;
-              }
-          }
-      });
-      </script>
-      
 </body>
 </html>
